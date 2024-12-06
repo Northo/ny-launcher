@@ -1,48 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Default values for the date inputs
-  const DEFAULT_START_DATE = "2022-01-01";
+  const DEFAULT_START_DATE = "2024-01-01";
   const DEFAULT_END_DATE = "2024-12-31";
 
-  // Get references to DOM elements
   const startDateInput = document.getElementById("startDate");
   const endDateInput = document.getElementById("endDate");
   const playButton = document.getElementById("playButton");
+  const viewDatesButton = document.getElementById("viewDatesButton");
 
-  // Load saved start and end dates from storage
+  // Load saved settings
   chrome.storage.sync.get(["startDate", "endDate"], (result) => {
     startDateInput.value = result.startDate || DEFAULT_START_DATE;
     endDateInput.value = result.endDate || DEFAULT_END_DATE;
   });
 
-  // Save new start and end dates when the user changes them
+  // Save changes to start and end dates
   startDateInput.addEventListener("change", () => {
     chrome.storage.sync.set({ startDate: startDateInput.value });
   });
+
   endDateInput.addEventListener("change", () => {
     chrome.storage.sync.set({ endDate: endDateInput.value });
   });
 
-  // Generate a random game URL when the button is clicked
+  // Play random game
   playButton.addEventListener("click", () => {
     const startDate = new Date(startDateInput.value);
     const endDate = new Date(endDateInput.value);
 
-    // Ensure valid date range
     if (startDate >= endDate) {
       alert("End date must be after start date!");
       return;
     }
 
-    // Generate a random date between the range
-    const randomTimestamp = startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime());
-    const randomDate = new Date(randomTimestamp);
+    const allDates = [];
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      allDates.push(new Date(d).toISOString().split("T")[0]);
+    }
 
-    // Format the date as YYYY/MM/DD
-    const formattedDate = `${randomDate.getFullYear()}/${String(randomDate.getMonth() + 1).padStart(2, "0")}/${String(randomDate.getDate()).padStart(2, "0")}`;
+    chrome.storage.sync.get(["drawnDates"], (result) => {
+      const drawnDates = result.drawnDates || [];
+      const availableDates = allDates.filter(date => !drawnDates.includes(date));
 
-    // Open the game URL in a new tab
-    const gameUrl = `https://www.nytimes.com/crosswords/game/mini/${formattedDate}`;
-    chrome.tabs.create({ url: gameUrl });
+      if (availableDates.length === 0) {
+        alert("All dates have been drawn! Resetting the pool.");
+        chrome.storage.sync.set({ drawnDates: [] });
+        return;
+      }
+
+      const randomDate = availableDates[Math.floor(Math.random() * availableDates.length)];
+      drawnDates.push(randomDate);
+      chrome.storage.sync.set({ drawnDates });
+
+      const [year, month, day] = randomDate.split("-");
+      const formattedDate = `${year}/${month}/${day}`;
+      chrome.tabs.create({ url: `https://my_url.com/${formattedDate}` });
+    });
+  });
+
+  // View drawn dates
+  viewDatesButton.addEventListener("click", () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("dates.html") });
   });
 });
-

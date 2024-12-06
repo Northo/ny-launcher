@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mini Launcher</title>
+  <title>Random Game Launcher</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       width: 300px;
       margin: 10px;
     }
-    label {
+    label, button {
       font-size: 14px;
       display: block;
-      margin: 10px 0 5px;
+      margin: 10px 0;
     }
     input {
       width: 100%;
@@ -20,9 +20,8 @@
       font-size: 14px;
     }
     button {
-      width: 100%;
       padding: 10px;
-      font-size: 16px;
+      font-size: 14px;
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -30,6 +29,12 @@
     }
     button:hover {
       background-color: #45a049;
+    }
+    .horizontal {
+      display: flex;
+    }
+    .horizontal button {
+      margin: 0 5px;
     }
   </style>
 </head>
@@ -41,7 +46,10 @@
   <label for="endDate">End Date:</label>
   <input type="date" id="endDate" value="2024-12-31" />
 
-  <button id="playButton">Play a Random Game</button>
+  <div class="horizontal">
+    <button id="playButton">Play a Random Game</button>
+    <button id="viewDatesButton">View Drawn Dates</button>
+  </div>
 
   <script src="popup.js"></script>
 </body>
