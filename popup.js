@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const [year, month, day] = randomDate.split("-");
       const formattedDate = `${year}/${month}/${day}`;
-      chrome.tabs.create({ url: `https://my_url.com/${formattedDate}` });
+      chrome.tabs.create({ url: `https://www.nytimes.com/crosswords/game/mini/${formattedDate}` });
     });
   });
 
