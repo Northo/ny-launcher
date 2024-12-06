@@ -1,5 +1,7 @@
 # Google Chrome extension to launch a random NY Mini!
 
+![](hero_image.svg)
+
 ## How to install
 
 At the moment, we are not available on the marketplace.
