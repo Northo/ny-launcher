@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Game Launcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 300px;
+      margin: 10px;
+    }
+    label {
+      font-size: 14px;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Game</h1>
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" value="2024-01-01" />
+
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" value="2024-12-31" />
+
+  <button id="playButton">Play a Random Game</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

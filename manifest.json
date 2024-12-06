@@ -1,14 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Play Mini!",
-  "version": "1.0",
+  "version": "1.2",
   "description": "Launch a random NY mini.",
-  "permissions": ["tabs"],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "permissions": ["tabs", "storage"],
   "action": {
+    "default_popup": "popup.html",
     "default_title": "Play!"
   }
 }
-
