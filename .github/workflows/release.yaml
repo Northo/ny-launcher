@@ -14,5 +14,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+
+      - run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Zip it
+        run: zip ${{ github.ref_name }}.zip dist/*
+
       - name: Release
         uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ github.ref_name }}.zip
