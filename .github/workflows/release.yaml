@@ -33,3 +33,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ${{ github.event.repository.name }}-${{ github.ref_name }}.zip
+          prerelease: ${{ contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-rc') }}
