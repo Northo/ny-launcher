@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // View drawn dates
   viewDatesButton.addEventListener("click", () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("dates.html") });
+    chrome.tabs.create({ url: chrome.runtime.getURL("config.html") });
   });
 });
+
