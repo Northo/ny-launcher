@@ -3,27 +3,29 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App</title>
   <link rel="stylesheet" href="/src/main.css" />
 </head>
 
-<body class="p-4">
+<body>
   <script type="module" src="/src/popup.js"></script>
 
-  <h1 class="text-3xl mb-4 font-extrabold leading-none text-gray-900 tracking-tight">Random Game</h1>
+  <form class="w-64 p-4">
 
-  <form class="w-64">
-    <div class="flex gap-2 justify-between">
-      <div>
-        <label class="block text-gray-700" for="startDate">Start Date:</label>
-        <input class="border rounded text-sm p-1" type="date" id="startDate" value="2024-01-01" />
+  <h1 class="text-center font-[Rockwell] text-3xl font-extrabold leading-none text-gray-900 tracking-tight">
+    Play Mini!
+  </h1>
+  <hr class="mt-1 mb-2 -ml-4 -mr-4" />
+    <div class="flex justify-between gap-1">
+      <div class="shrink min-w-0">
+        <label class="block text-gray-600 text-sm" for="startDate">Start Date:</label>
+        <input class="border rounded text-xs p-1 w-full" type="date" id="startDate" value="2024-01-01" />
       </div>
 
-      <div>
-        <label class="block text-gray-700" for="endDate">End Date:</label>
-        <input class="border rounded text-sm p-1" type="date" id="endDate" value="2024-12-31" />
+      <div class="shrink min-w-0">
+        <label class="block text-gray-600 text-sm" for="endDate">End Date:</label>
+        <input class="border rounded text-xs p-1 w-full" type="date" id="endDate" value="2024-12-31" />
       </div>
     </div>
 
