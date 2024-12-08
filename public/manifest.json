@@ -3,7 +3,7 @@
   "name": "Play Mini (vite version)!",
   "version": "1.2.0",
   "description": "Launch a random NY mini.",
-  "permissions": ["tabs", "storage"],
+  "permissions": ["tabs", "storage", "history"],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Play!"
