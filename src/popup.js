@@ -1,26 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const DEFAULT_START_DATE = "2024-01-01";
-  const DEFAULT_END_DATE = "2024-12-31";
+  const FIRST_MINI_DATE = "2014-08-21";
 
   const startDateInput = document.getElementById("startDate");
   const endDateInput = document.getElementById("endDate");
   const playButton = document.getElementById("playButton");
   const viewDatesButton = document.getElementById("viewDatesButton");
 
+  const today = new Date().toISOString().split("T")[0];
+
   // Load saved settings
   chrome.storage.sync.get(["startDate", "endDate"], (result) => {
-    startDateInput.value = result.startDate || DEFAULT_START_DATE;
-    endDateInput.value = result.endDate || DEFAULT_END_DATE;
+    startDateInput.value = result.startDate || FIRST_MINI_DATE;
+    endDateInput.value = result.endDate || today;
   });
 
-  // Save changes to start and end dates
-  startDateInput.addEventListener("change", () => {
+  startDateInput.setAttribute("min", FIRST_MINI_DATE);
+  endDateInput.setAttribute("max", endDateInput.value);
+
+  startDateInput.addEventListener("change", (event) => {
+    endDateInput.setAttribute("min", event.target.value);
     chrome.storage.sync.set({ startDate: startDateInput.value });
-  });
-
-  endDateInput.addEventListener("change", () => {
+  })
+  endDateInput.addEventListener("change", (event) => {
+    startDateInput.setAttribute("max", event.target.value);
     chrome.storage.sync.set({ endDate: endDateInput.value });
-  });
+  })
 
   // Play random game
   playButton.addEventListener("click", () => {
@@ -59,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // View drawn dates
   viewDatesButton.addEventListener("click", () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("dates.html") });
+    chrome.tabs.create({ url: chrome.runtime.getURL("config.html") });
   });
 });
+
